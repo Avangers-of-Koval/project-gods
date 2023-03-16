@@ -13,20 +13,19 @@
 - Якщо виникла якась проблема з CMake, перевірте чи знаходиться він у PATH.
 
 <details>
-	<summary>Комманди для встановлення</summary>
+<summary>Комманди для встановлення</summary>
 
-	- Debian/Ubuntu:
+- Debian/Ubuntu:
 
-			sudo apt-get install cmake clang-format build-essential
+		sudo apt-get install cmake clang-format build-essential
 
-	- Windows:
+- Windows:
 
-			winget install Kitware.CMake LLVM.LLVM
+		winget install Kitware.CMake LLVM.LLVM
 
-	- MacOS:
+- MacOS:
 
-			brew install cmake llvm clang-format
-
+		brew install cmake llvm clang-format
 </details>
 
 
