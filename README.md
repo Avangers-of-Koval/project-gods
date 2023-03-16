@@ -8,7 +8,7 @@
 Для успішної роботи необхідно встановити CMake, clang-format та будь-який компілятор.
 
 Примітка для встановлення програм
-- для Windows, використовуйте [winget](https://github.com/microsoft/winget-cli) (повинно бути одразу в системі).
+- для Windows, використовуйте [winget](https://github.com/microsoft/winget-cli) (повинно бути одразу в системі). Якщо winget не може бути встановленим, використовуйте [choco](https://chocolatey.org/install).
 - для MacOS, використовуйте [brew](https://brew.sh/).
 - Якщо виникла якась проблема з CMake, перевірте чи знаходиться він у PATH.
 
@@ -22,6 +22,9 @@
 - Windows:
 
 		winget install Kitware.CMake LLVM.LLVM
+    або
+        
+        choco install cmake llvm
 
 - MacOS:
 
