@@ -1,11 +1,5 @@
 {
-	"files.exclude": {
-		"**/.git": true,
-		"**/.svn": true,
-		"**/.hg": true,
-		"**/CVS": true,
-		"**/.DS_Store": true,
-		"**/*.o": true,
-		"**/*.exe": true,
-	}
+	"editor.formatOnSave": true,
+	"editor.defaultFormatter": "xaver.clang-format"
 }
+
