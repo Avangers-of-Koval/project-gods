@@ -8,25 +8,27 @@
 Для успішної роботи необхідно встановити CMake, clang-format та будь-який компілятор.
 
 Примітка для встановлення програм
-- для Windows, використовуйте [winget](https://github.com/microsoft/winget-cli) (повинно бути одразу в системі).
+- для Windows, використовуйте [winget](https://github.com/microsoft/winget-cli) (повинно бути одразу в системі). Якщо winget не може бути встановленим, використовуйте [choco](https://chocolatey.org/install).
 - для MacOS, використовуйте [brew](https://brew.sh/).
 - Якщо виникла якась проблема з CMake, перевірте чи знаходиться він у PATH.
 
 <details>
-	<summary>Комманди для встановлення</summary>
+<summary>Комманди для встановлення</summary>
 
-	- Debian/Ubuntu:
+- Debian/Ubuntu:
 
-			sudo apt-get install cmake clang-format build-essential
+		sudo apt-get install cmake clang-format build-essential
 
-	- Windows:
+- Windows:
 
-			winget install Kitware.CMake LLVM.LLVM
+		winget install Kitware.CMake LLVM.LLVM
+    або
+        
+        choco install cmake llvm
 
-	- MacOS:
+- MacOS:
 
-			brew install cmake llvm clang-format
-
+		brew install cmake llvm clang-format
 </details>
 
 

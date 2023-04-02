@@ -129,6 +129,7 @@ add_library(project_gods::project_warnings INTERFACE IMPORTED)
 # Adding the src:
 add_subdirectory(src)
 
+file(COPY assets DESTINATION ${CMAKE_BINARY_DIR}/src)
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment
 # so that it behaves well with MSVC's debugger, and we can run the target from visual studio
