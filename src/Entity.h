@@ -11,7 +11,7 @@
 class Entity
 {
 protected:
-  static Vector2 _position;
+  Vector2 _position;
   Vector2 _size = { 0, 0 };
   float _rotation = 0;
 
