@@ -40,12 +40,12 @@ public:
   {
     // Apply input forces to the Box2D body
     b2Vec2 move(0.0f, 0.0f);
-    if (IsKeyDown(KEY_LEFT)) { move.x += 50.0f; }
-    if (IsKeyDown(KEY_RIGHT)) { move.x -= 50.0f; }
+    if (IsKeyDown(KEY_LEFT)) { move.x += 5.0f; }
+    if (IsKeyDown(KEY_RIGHT)) { move.x -= 5.0f; }
 
-    _body->ApplyForceToCenter({ move.x * _body->GetMass(), move.y }, true);
+    _body->SetLinearVelocity({ move.x * _body->GetMass(), _body->GetLinearVelocity().y });
 
-    if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulseToCenter({ 0, 0.5f * _body->GetMass() }, true);
+    if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulseToCenter({ 0, 1.0f * _body->GetMass() }, true);
 
     _position = UpdatePosition();
   }

@@ -4,7 +4,6 @@
 #include "box2d/box2d.h"
 #include "raylib.h"
 #include "vector"
-#include <iostream>
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 450;

@@ -7,7 +7,6 @@
 
 #include "box2d/box2d.h"
 #include "raylib.h"
-#include <iostream>
 
 #define PHYSICS_SCALE 100.0f
 
