@@ -7,10 +7,12 @@
 
 #include "box2d/box2d.h"
 #include "raylib.h"
+#include <iostream>
+
+#define PHYSICS_SCALE 100.0f
 
 class PhysicsEntity
 {
-
 protected:
   b2Body *_body = nullptr;
 
@@ -20,7 +22,7 @@ public:
     // Create the Box2D body definition
     b2BodyDef bodyDef;
     bodyDef.type = bodyType;
-    bodyDef.position.Set(position.x / 100.0f, position.y / 100.0f);// Convert from pixels to meters
+    bodyDef.position.Set(position.x / PHYSICS_SCALE, position.y / PHYSICS_SCALE);// Convert from pixels to meters
     _body = world->CreateBody(&bodyDef);
   }
 
@@ -31,8 +33,8 @@ public:
     Vector2 new_pos;
     // Update the Raylib shape position based on the Box2D body position
     const b2Vec2 &phys_position = _body->GetPosition();
-    new_pos.x = phys_position.x * 100.0f;// Convert from meters to pixels
-    new_pos.y = phys_position.y * 100.0f;
+    new_pos.x = phys_position.x * PHYSICS_SCALE;// Convert from meters to pixels
+    new_pos.y = phys_position.y * PHYSICS_SCALE;
     return new_pos;
   }
 };

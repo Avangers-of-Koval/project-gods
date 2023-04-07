@@ -17,14 +17,9 @@ public:
     : PhysicsEntity(world, b2_staticBody, position)
   {
     b2PolygonShape box;
-    box.SetAsBox(size.x / 2.0f, size.y / 2.0f);
+    box.SetAsBox(size.x / (2.0f * PHYSICS_SCALE), size.y / (2.0f * PHYSICS_SCALE));
 
-    // Create the Box2D fixture definition
-    b2FixtureDef fixtureDef;
-    fixtureDef.shape = &box;
-    fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
-    _body->CreateFixture(&fixtureDef);
+    _body->CreateFixture(&box, 1.0f);
 
     _position = position;
     _size = size;
@@ -32,11 +27,8 @@ public:
 
   void Draw() override
   {
-    DrawRectangle(static_cast<int>(_position.x),
-      static_cast<int>(_position.y),
-      static_cast<int>(_size.x),
-      static_cast<int>(_size.y),
-      GREEN);
+    DrawRectanglePro(
+      { _size.x / 2.0f, _size.y / 2.0f, _size.x, _size.y }, { _position.x, _position.y }, _rotation, GREEN);
   }
 
   void Update([[maybe_unused]] float delta) override { _position = UpdatePosition(); }

@@ -22,27 +22,30 @@ public:
     : TexturedEntity(texture, source), PhysicsEntity(world, b2_dynamicBody, position)
   {
     b2PolygonShape box;
-    box.SetAsBox(size.x / 2.0f, size.y / 2.0f);
+    box.SetAsBox(size.x / (2.0f * PHYSICS_SCALE), size.y / (2.0f * PHYSICS_SCALE));
 
     // Create the Box2D fixture definition
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &box;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.3f;
+    fixtureDef.friction = 0.9f;
+    fixtureDef.restitution = 0.0f;
     _body->CreateFixture(&fixtureDef);
 
     _position = position;
+    _size = size;
   }
 
   void Update([[maybe_unused]] float delta) override
   {
     // Apply input forces to the Box2D body
-    b2Vec2 force(0.0f, 0.0f);
-    if (IsKeyDown(KEY_LEFT)) { force.x -= 10.0f; }
-    if (IsKeyDown(KEY_RIGHT)) { force.x += 10.0f; }
-    _body->ApplyForceToCenter(force, true);
+    b2Vec2 move(0.0f, 0.0f);
+    if (IsKeyDown(KEY_LEFT)) { move.x += 50.0f; }
+    if (IsKeyDown(KEY_RIGHT)) { move.x -= 50.0f; }
 
-    if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulse({ 0, sqrt(2 * 9.81f * 10) }, _body->GetWorldCenter(), true);
+    _body->ApplyForceToCenter({ move.x * _body->GetMass(), move.y }, true);
+
+    if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulseToCenter({ 0, 0.5f * _body->GetMass() }, true);
 
     _position = UpdatePosition();
   }

@@ -3,8 +3,8 @@
 #include "Player.h"
 #include "box2d/box2d.h"
 #include "raylib.h"
-#include "string"
 #include "vector"
+#include <iostream>
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 450;
@@ -17,7 +17,7 @@ int32 positionIterations = 2;
 b2Vec2 gravity(0.0f, -GRAVITY);
 b2World world(gravity);
 
-std::vector<Entity> entities;
+std::vector<Entity *> entities;
 
 int main()
 {
@@ -27,32 +27,43 @@ int main()
 
   auto playerTexture = LoadTexture("assets/player.png");
 
-  Player player(&world, { 0, 0 }, { PLAYER_SIZE, PLAYER_SIZE }, playerTexture, { 0, 0, 16.0f, 16.0f });
+  auto player = new Player(&world, { -40, -20 }, { PLAYER_SIZE, PLAYER_SIZE }, playerTexture, { 0, 0, 16.0f, 16.0f });
 
   entities.push_back(player);
 
-  for (int i = 0; i < SCREEN_WIDTH / 32; ++i) {
-    DebugObject ground(&world, { -32 * static_cast<float>(i), static_cast<float>(-GetScreenHeight()) }, { 32, 32 });
-
+  for (int i = 0; i < SCREEN_WIDTH / 58; ++i) {
+    auto ground = new DebugObject(&world, { -58 * static_cast<float>(i), -128 }, { 32, 32 });
     entities.push_back(ground);
   }
+
+  Camera2D camera;
+  camera.target = { player->GetPosition().x + player->GetSize().x / 2,
+    player->GetPosition().y + player->GetSize().y / 2 };
+  camera.offset = { 0, 0 };
+  camera.rotation = 0.0f;
+  camera.target = { 0, 0 };
+  camera.zoom = 1.0f;
 
   while (!WindowShouldClose()) {
     auto delta = GetFrameTime();
 
-    for (Entity entity : entities) { entity.Update(delta); }
+    for (auto &entity : entities) { entity->Update(delta); }
 
     BeginDrawing();
-
+    BeginMode2D(camera);
     ClearBackground(RAYWHITE);
 
-    for (Entity entity : entities) { entity.Draw(); }
+    for (auto &entity : entities) { entity->Draw(); }
 
+    EndMode2D();
     DrawFPS(0, 0);
-    world.Step(1.0f / 60.0f, velocityIterations, positionIterations);
     EndDrawing();
+
+    world.Step(1.0f / 60.0f, velocityIterations, positionIterations);
   }
 
+  for (auto &entity : entities) { delete entity; }
+  entities.clear();
   CloseWindow();
 
   return 0;
