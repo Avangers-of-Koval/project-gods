@@ -19,11 +19,8 @@ public:
   virtual ~Entity() = default;
   virtual void Draw()
   {
-    DrawRectangle(static_cast<int>(_position.x),
-      static_cast<int>(_position.y),
-      static_cast<int>(_size.x),
-      static_cast<int>(_size.y),
-      RED);
+    DrawRectanglePro(
+      { _size.x / 2.0f, _size.y / 2.0f, _size.x, _size.y }, { _position.x, _position.y }, _rotation, RED);
   }
   virtual void Update([[maybe_unused]] float delta) {}
   virtual void Move(Vector2 new_pos) { _position = new_pos; }

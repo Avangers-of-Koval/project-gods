@@ -8,7 +8,7 @@
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 450;
 const float PLAYER_SIZE = 64.0f;
-const float GRAVITY = 9.81f;
+const float GRAVITY = 5.0f;
 
 int32 velocityIterations = 6;
 int32 positionIterations = 2;
@@ -26,12 +26,13 @@ int main()
 
   auto playerTexture = LoadTexture("assets/player.png");
 
-  auto player = new Player(&world, { -40, -20 }, { PLAYER_SIZE, PLAYER_SIZE }, playerTexture, { 0, 0, 16.0f, 16.0f });
+  auto player =
+    new Player(&world, { -40, -20 }, { PLAYER_SIZE - 1, PLAYER_SIZE - 1 }, playerTexture, { 0, 0, 16.0f, 16.0f });
 
   entities.push_back(player);
 
-  for (int i = 0; i < SCREEN_WIDTH / 58; ++i) {
-    auto ground = new DebugObject(&world, { -58 * static_cast<float>(i), -128 }, { 32, 32 });
+  for (int i = 0; i < SCREEN_WIDTH / 32; ++i) {
+    auto ground = new DebugObject(&world, { -32 * static_cast<float>(i), -128 }, { 32, 32 });
     entities.push_back(ground);
   }
 

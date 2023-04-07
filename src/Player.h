@@ -28,9 +28,14 @@ public:
     b2FixtureDef fixtureDef;
     fixtureDef.shape = &box;
     fixtureDef.density = 1.0f;
-    fixtureDef.friction = 0.9f;
+    fixtureDef.friction = 0.1f;
     fixtureDef.restitution = 0.0f;
     _body->CreateFixture(&fixtureDef);
+
+    _body->SetSleepingAllowed(false);
+
+    //    _body->SetLinearDamping(0.01f);
+    //    _body->SetFixedRotation(true);
 
     _position = position;
     _size = size;
@@ -43,8 +48,8 @@ public:
     if (IsKeyDown(KEY_LEFT)) { move.x += 5.0f; }
     if (IsKeyDown(KEY_RIGHT)) { move.x -= 5.0f; }
 
-    _body->SetLinearVelocity({ move.x * _body->GetMass(), _body->GetLinearVelocity().y });
-
+    auto pos = _body->GetPosition();
+    _body->SetTransform({ pos.x + move.x / PHYSICS_SCALE, pos.y + move.y / PHYSICS_SCALE }, 0.0f);
     if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulseToCenter({ 0, 1.0f * _body->GetMass() }, true);
 
     _position = UpdatePosition();
