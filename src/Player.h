@@ -19,7 +19,7 @@ class Player
 
 public:
   Player(b2World *world, const Vector2 &position, const Vector2 &size, Texture2D texture, Rectangle source)
-    : TexturedEntity(texture, source), PhysicsEntity(world, b2_dynamicBody, position)
+    : TexturedEntity(texture, source), PhysicsEntity(world, b2_dynamicBody, position, size)
   {
     b2PolygonShape box;
     box.SetAsBox(size.x / (2.0f * PHYSICS_SCALE), size.y / (2.0f * PHYSICS_SCALE));
@@ -34,9 +34,6 @@ public:
 
     _body->SetSleepingAllowed(false);
 
-    //    _body->SetLinearDamping(0.01f);
-    //    _body->SetFixedRotation(true);
-
     _position = position;
     _size = size;
   }
@@ -48,8 +45,7 @@ public:
     if (IsKeyDown(KEY_LEFT)) { move.x += 5.0f; }
     if (IsKeyDown(KEY_RIGHT)) { move.x -= 5.0f; }
 
-    auto pos = _body->GetPosition();
-    _body->SetTransform({ pos.x + move.x / PHYSICS_SCALE, pos.y + move.y / PHYSICS_SCALE }, 0.0f);
+    _body->ApplyForceToCenter({ move.x, move.y }, true);
     if (IsKeyDown(KEY_UP)) _body->ApplyLinearImpulseToCenter({ 0, 1.0f * _body->GetMass() }, true);
 
     _position = UpdatePosition();

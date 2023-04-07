@@ -14,7 +14,7 @@ class DebugObject
 {
 public:
   DebugObject(b2World *world, const Vector2 &position, const Vector2 &size)
-    : PhysicsEntity(world, b2_staticBody, position)
+    : PhysicsEntity(world, b2_staticBody, position, size)
   {
     b2PolygonShape box;
     box.SetAsBox(size.x / (2.0f * PHYSICS_SCALE), size.y / (2.0f * PHYSICS_SCALE));
@@ -25,11 +25,7 @@ public:
     _size = size;
   }
 
-  void Draw() override
-  {
-    DrawRectanglePro(
-      { _size.x / 2.0f, _size.y / 2.0f, _size.x, _size.y }, { _position.x, _position.y }, _rotation, GREEN);
-  }
+  void Draw() override { DrawRectanglePro({ 0, 0, _size.x, _size.y }, { _position.x, _position.y }, _rotation, GREEN); }
 
   void Update([[maybe_unused]] float delta) override { _position = UpdatePosition(); }
 };
