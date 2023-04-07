@@ -43,6 +43,7 @@ int main()
   Camera2D camera;
   camera.target = { 0, 0 };
   camera.offset = { 0, 0 };
+  camera.rotation = 0;
   camera.zoom = 1.0f;
 
   while (!WindowShouldClose()) {
